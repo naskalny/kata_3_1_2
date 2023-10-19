@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+    <h1>Users</h1>
+    <table border="2">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Age</th>
+        </tr>
+        <tr th:each="user : ${users}">
+            <td th:utext="${user.id}"></td>
+            <td th:utext="${user.name}"></td>
+            <td th:utext="${user.surname}"></td>
+            <td th:utext="${user.age}"></td>
+            <td><a class="btn btn-primary" th:href="@{/user/getUser(id=${user.getId()})}">Open</a></td>
+            <td><a class="btn btn-warning" th:href="@{/user/edit(id=${user.getId()})}">Edit</a></td>
+            <td><a class="btn btn-danger" th:href="@{/user/delete(id=${user.getId()})}">Delete</a></td>
+        </tr>
+    </table>
+    </br>
+    <a th:href="@{/user/create}">Add</a>
+</body>
+</html>
+
