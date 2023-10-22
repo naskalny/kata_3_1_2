@@ -1,7 +1,9 @@
 package ru.gagiev.springboot.kata_3_1_2.controller;
 
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.gagiev.springboot.kata_3_1_2.model.User;
 import ru.gagiev.springboot.kata_3_1_2.service.UserService;
@@ -36,7 +38,10 @@ public class UserController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("person") User user) {
+    public String create(@ModelAttribute("user") @Valid User user,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "create";
         userService.addUser(user);
         return "redirect:/user";
     }
@@ -48,7 +53,10 @@ public class UserController {
     }
 
     @PostMapping(value = "/update")
-    public String update(@ModelAttribute("person") User user) {
+    public String update(@ModelAttribute("user") @Valid User user,
+                         BindingResult bindingResult) {
+        if (bindingResult.hasErrors())
+            return "edit";
         userService.editUser(user);
         return "redirect:/user";
     }
